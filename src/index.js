@@ -142,7 +142,10 @@ export default class extends Component {
     /**
      * Called when the index has changed because the user swiped.
      */
-    onIndexChanged: PropTypes.func
+    onIndexChanged: PropTypes.func,
+
+    renderFirstElement: PropTypes.func,
+    renderLastElement: PropTypes.func,
   }
 
   /**
@@ -169,7 +172,9 @@ export default class extends Component {
     autoplayTimeout: 2.5,
     autoplayDirection: true,
     index: 0,
-    onIndexChanged: () => null
+    onIndexChanged: () => null,
+    renderFirstElement: () => null,
+    renderLastElement: () => null,
   }
 
   /**
@@ -612,7 +617,9 @@ export default class extends Component {
         onMomentumScrollEnd={this.onScrollEnd}
         onScrollEndDrag={this.onScrollEndDrag}
         style={this.props.scrollViewStyle}>
+        {this.props.renderFirstElement()}
         {pages}
+        {this.props.renderLastElement()}
       </ScrollView>
      )
   }
