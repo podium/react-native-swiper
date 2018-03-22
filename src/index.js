@@ -472,6 +472,29 @@ export default class extends Component {
     })
   }
 
+  /**
+   * Scroll to index
+   * @param  {number} target index
+   * @param  {bool} animated
+   */
+
+  scrollTo = (index, animated = true) => {
+    if (this.internals.isScrolling || this.state.total < 2) return
+    const state = this.state
+    let x = 0
+    let y = 0
+    if (state.dir === 'x') x = index * state.width
+    if (state.dir === 'y') y = index * state.height
+
+    this.scrollView && this.scrollView.scrollTo({ x, y, animated })
+
+    // update scroll state
+    this.internals.isScrolling = true
+    this.setState({
+      autoplayEnd: false
+    })
+  }
+
   scrollViewPropOverrides = () => {
     const props = this.props
     let overrides = {}
